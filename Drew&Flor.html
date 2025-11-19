@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andrew and Flordelyn
+                  variety shop</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+        }
+
+        header {
+            background: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .search-container {
+            margin: 30px auto;
+            width: 300px;
+            display: flex;
+        }
+s
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #aaa;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .search-container { margin: 30px auto; width: 420px; display: flex; gap:6px; align-items:center; }
+
+        .search-container button {
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 10px 12px;
+            font-weight: 600;
+        }
+
+        .contact-btn { background: #28a745; border-radius: 0 4px 4px 0; width: 90px; margin-left: 8px; }
+        .contact-btn:hover { background:#218838; }
+
+        .search-btn { background: #0078ff; border-radius: 0; width: 90px; }
+        .search-btn:hover { background: #005fcc; }
+
+        #result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        /* Gallery styles */
+        .gallery-section { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
+        .grid-3x3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        @media (max-width: 800px) { .grid-3x3 { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 480px) { .grid-3x3 { grid-template-columns: 1fr; } }
+        .grid-3x3 figure { margin: 0; background: #fff; padding: 8px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+        .grid-3x3 img { width: 100%; height: 180px; object-fit: cover; border-radius: 4px; cursor: zoom-in; }
+        .grid-3x3 figcaption { margin-top: 6px; font-size: 14px; color: #333; text-align:center; }
+        .grid-3x3 figure.highlight { outline: 3px solid #ffd54f; box-shadow: 0 6px 18px rgba(0,0,0,0.12); }
+        .search-item { display:flex; align-items:center; background:#fff; padding:6px 8px; border-radius:6px; box-shadow:0 1px 3px rgba(0,0,0,0.06); }
+        /* Modal / lightbox */
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); align-items: center; justify-content: center; padding: 20px; z-index: 9999; }
+        .modal img { max-width: 95%; max-height: 80vh; border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.5); }
+        #modalCaption { color: #fff; margin-top: 12px; text-align: center; }
+        /* Contact modal */
+        .contact-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; padding: 20px; z-index: 10000; }
+        .contact-box { background: #fff; padding: 18px; border-radius: 8px; min-width: 260px; max-width: 360px; box-shadow: 0 6px 24px rgba(0,0,0,0.2); }
+        .contact-box h3 { margin: 0 0 10px 0; }
+        .contact-number { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #eee; }
+        .contact-number:last-child { border-bottom: none; }
+        .copy-btn { background:#0078ff;border:none;color:#fff;padding:6px 8px;border-radius:6px;cursor:pointer }
+        .copy-btn:hover { background:#005fcc }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Andrew & Flordelyn
+                  Variety Shop</h1>
+    <div id="contactNameDisplay" style="font-size:14px;margin-top:6px;color:#e6e6e6"></div>
+</header>
+
+<div class="search-container">
+    <input type="text" id="searchInput" placeholder="Type something...">
+    <button class="search-btn" onclick="performSearch()">Search</button>
+    <button class="contact-btn" onclick="openContact()">Contact</button>
+</div>
+
+<div id="result"></div>
+
+<!-- 3x3 Image Grid Gallery -->
+<section class="gallery-section">
+    <h2 style="text-align:center;">Products</h2>
+    <div class="grid-3x3" id="grid3x3">
+        <figure>
+            <img src="C:\Users\andre\Downloads\c2f4cae40f127062bc6f9527b972da8b.jpg" alt="Product 1" onerror="this.onerror=null;this.src='https://via.placeholder.com/600x400?text=Product+1'">
+            <figcaption>ratchet belt</figcaption>
+        </figure>
+        <figure>
+            <img src="images/product2.jpg" alt="Product 2" onerror="this.onerror=null;this.src='https://via.placeholder.com/600x400?text=Product+2'">
+            <figcaption>Product 2</figcaption>
+        </figure>
+        <figure>
+            <img src="images/product3.jpg" alt="Product 3" onerror="this.onerror=null;this.src='https://via.placeholder.com/600x400?text=Product+3'">
+            <figcaption>Product 3</figcaption>
+        </figure>
+        <figure>
+            <img src="images/product4.jpg" alt="Product 4" onerror="this.onerror=null;this.src='https://via.placeholder.com/600x400?text=Product+4'">
+            <figcaption>Product 4</figcaption>
+        </figure>
+        <figure>
+            <img src="images/product5.jpg" alt="Product 5" onerror="this.onerror=null;this.src='https://via.placeholder.com/600x400?text=Product+5'">
+            <figcaption>Product 5</figcaption>
+        </figure>
+        <figure>
+            <img src="images/product6.jpg" alt="Product 6" onerror="this.onerror=null;this.src='https://via.placeholder.com/600x400?text=Product+6'">
+            <figcaption>Product 6</figcaption>
+        </figure>
+        <figure>
+            <img src="images/product7.jpg" alt="Product 7" onerror="this.onerror=null;this.src='https://via.placeholder.com/600x400?text=Product+7'">
+            <figcaption>Product 7</figcaption>
+        </figure>
+        <figure>
+            <img src="images/product8.jpg" alt="Product 8" onerror="this.onerror=null;this.src='https://via.placeholder.com/600x400?text=Product+8'">
+            <figcaption>Product 8</figcaption>
+        </figure>
+        <figure>
+            <img src="images/product9.jpg" alt="Product 9" onerror="this.onerror=null;this.src='https://via.placeholder.com/600x400?text=Product+9'">
+            <figcaption>Product 9</figcaption>
+        </figure>
+    </div>
+</section>
+
+<!-- Modal / Lightbox -->
+<div id="modal" class="modal" onclick="closeModal()" aria-hidden="true">
+    <div>
+        <img id="modalImg" src="" alt="Expanded image">
+        <p id="modalCaption"></p>
+    </div>
+</div>
+
+<!-- Contact modal (shows two contact numbers) -->
+<div id="contactModal" class="contact-modal" onclick="if(event.target===this) closeContact()" aria-hidden="true">
+    <div class="contact-box" role="dialog" aria-modal="true" aria-label="Contact numbers">
+        <h3>Contact numbers</h3>
+        <div class="contact-number">
+            <span>09360729311 (Andrew)</span>
+            <button class="copy-btn" onclick="copyNumber('+1 234 567 8901')">Copy</button>
+        </div>
+        <div class="contact-number">
+            <span>09350549732 (flor)</span>
+            <button class="copy-btn" onclick="copyNumber('+1 987 654 3210')">Copy</button>
+        </div>
+        <div class="contact-number">
+            <span>09614692495 (drin)</span>
+            <button class="copy-btn" onclick="copyNumber('+63 912 345 6789')">Copy</button>
+        </div>
+            <!-- contact numbers removed -->
+            <div style="margin-top:10px;border-top:1px solid #f1f1f1;padding-top:10px">
+                <button class="copy-btn" onclick="copyPageLink()">Copy page link</button>
+                <small style="display:block;margin-top:6px;color:#666">Copy this link and open it on your phone (or send via chat).</small>
+            </div>
+        <div style="text-align:right;margin-top:12px">
+            <button onclick="closeContact()" style="padding:8px 10px;border-radius:6px;border:none;background:#ccc;color:#000;">Close</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function performSearch() {
+        const input = document.getElementById('searchInput');
+        const text = (input.value || '').trim().toLowerCase();
+        const result = document.getElementById('result');
+        const searchBtn = document.querySelector('.search-container button');
+
+        // clear previous highlights
+        document.querySelectorAll('.grid-3x3 figure.highlight').forEach(f => f.classList.remove('highlight'));
+
+        if (!text) {
+            result.innerHTML = 'Please enter a search term.';
+            if (searchBtn) searchBtn.textContent = 'Search';
+            return;
+        }
+
+        // Find matches by figcaption text or image alt text
+        const matches = [];
+        document.querySelectorAll('#grid3x3 figure').forEach(fig => {
+            const img = fig.querySelector('img');
+            const captionEl = fig.querySelector('figcaption');
+            const caption = captionEl ? captionEl.textContent.trim() : '';
+            const alt = img ? (img.alt || '') : '';
+            const hay = (caption + ' ' + alt).toLowerCase();
+            if (hay.includes(text)) matches.push({ fig, img, caption: caption || alt });
+        });
+
+        if (matches.length === 0) {
+            result.innerHTML = 'No matching products found.';
+            if (searchBtn) {
+                searchBtn.textContent = 'No results';
+                setTimeout(() => { if (searchBtn) searchBtn.textContent = 'Search'; }, 2000);
+            }
+            return;
+        }
+
+        // Show matches in result area (thumbnails + names), highlight them,
+        // and hide non-matching items in the grid so only matches remain visible.
+        const itemsHtml = matches.map(m => {
+            const src = m.img ? m.img.src : '';
+            const safeCaption = (m.caption || '').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            return `<div class="search-item"><img src="${src}" style="width:120px;height:80px;object-fit:cover;border-radius:4px;margin-right:8px"> <strong>${safeCaption}</strong></div>`;
+        }).join('');
+        result.innerHTML = `<div>Found ${matches.length} match(es):</div><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">${itemsHtml}</div><div style="margin-top:8px"><button onclick="resetSearch()">Show all</button></div>`;
+        matches.forEach(m => m.fig.classList.add('highlight'));
+
+        // Hide non-matching figures so only matches show in the gallery
+        document.querySelectorAll('#grid3x3 figure').forEach(fig => {
+            if (!matches.find(m => m.fig === fig)) {
+                fig.dataset._prevDisplay = fig.style.display || '';
+                fig.style.display = 'none';
+            } else {
+                fig.style.display = '';
+            }
+        });
+
+        // Temporarily update button text to show the first found item
+        if (searchBtn) {
+            searchBtn.textContent = 'Found: ' + (matches[0].caption || 'item');
+            setTimeout(() => { if (searchBtn) searchBtn.textContent = 'Search'; }, 3000);
+        }
+
+        // Scroll first match into view
+        try { matches[0].fig.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
+    }
+
+    // Restore full gallery view and clear highlights/result
+    function resetSearch() {
+        document.querySelectorAll('#grid3x3 figure').forEach(fig => {
+            if (fig.dataset._prevDisplay !== undefined) {
+                fig.style.display = fig.dataset._prevDisplay || '';
+                delete fig.dataset._prevDisplay;
+            } else {
+                fig.style.display = '';
+            }
+            fig.classList.remove('highlight');
+        });
+        const result = document.getElementById('result');
+        if (result) result.innerHTML = '';
+        const searchBtn = document.querySelector('.search-container button');
+        if (searchBtn) searchBtn.textContent = 'Search';
+    }
+
+    // Lightbox functions for grid images
+    function openModal(imgEl) {
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modalImg');
+        const caption = document.getElementById('modalCaption');
+        modalImg.src = imgEl.src;
+        caption.textContent = imgEl.alt || '';
+        modal.style.display = 'flex';
+        modal.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('modal');
+        modal.style.display = 'none';
+        modal.setAttribute('aria-hidden', 'true');
+    }
+
+    // Attach click handlers for the 3x3 grid images
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('#grid3x3 img').forEach(img => {
+            img.addEventListener('click', function (e) { openModal(e.currentTarget); });
+        });
+    });
+
+    // Contact modal controls
+    function openContact() {
+        const m = document.getElementById('contactModal');
+        if (!m) return;
+        m.style.display = 'flex';
+        m.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeContact() {
+        const m = document.getElementById('contactModal');
+        if (!m) return;
+        m.style.display = 'none';
+        m.setAttribute('aria-hidden', 'true');
+    }
+
+    function copyNumber(number) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(number).then(() => {
+                alert('Copied: ' + number);
+            }).catch(() => {
+                fallbackCopy(number);
+            });
+        } else {
+            fallbackCopy(number);
+        }
+    }
+
+    function fallbackCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); alert('Copied: ' + text); } catch (e) { alert('Copy failed'); }
+        ta.remove();
+    }
+
+    // Copy current page link so you can open the website on your phone
+    function copyPageLink() {
+        const link = window.location.href;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(link).then(() => { alert('Page link copied: ' + link); }).catch(() => { fallbackCopy(link); });
+        } else {
+            fallbackCopy(link);
+        }
+    }
+</script>
+
+</body>
+</html>
